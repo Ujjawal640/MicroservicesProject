@@ -2,7 +2,7 @@ package com.ujjawal.booking_service.controller;
 
 import com.ujjawal.booking_service.entity.BookingInfoEntity;
 import com.ujjawal.booking_service.entity.PaymentDetails;
-import com.ujjawal.booking_service.exceptions.InvalidBookingIdException;
+
 import com.ujjawal.booking_service.exceptions.InvalidPaymentModeException;
 import com.ujjawal.booking_service.service.bookingservice;
 import com.ujjawal.booking_service.service.bookingserviceimpl;
@@ -25,11 +25,9 @@ public class bookingController {
 
    @PostMapping("/{bookingId}/transaction")
     public ResponseEntity<BookingInfoEntity> processPayment(@PathVariable Long bookingId, @RequestBody PaymentDetails paymentDetails) {
-      try {
+   
 	   BookingInfoEntity BookingInfoEntity= bookingService.processPayment(bookingId, paymentDetails);
            return new ResponseEntity<>(BookingInfoEntity,HttpStatus.CREATED);
-   } catch (InvalidPaymentModeException | InvalidBookingIdException e) {
-       throw e; // Let the GlobalExceptionHandler handle these exceptions
-   }
+  
     }
 }
